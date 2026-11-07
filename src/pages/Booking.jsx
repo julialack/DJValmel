@@ -70,73 +70,74 @@ const Booking = () => {
 
   return (
     <div className="container section-padding">
-      <div style={{ textAlign: "center", marginBottom: "50px" }}>
-        <span className="badge badge-gold" style={{ marginBottom: "12px" }}>BOKA ONLINE</span>
-        <h1 style={{ fontSize: "3rem", color: "#fff", fontWeight: "900", marginBottom: "16px" }}>
+      <div style={{ textAlign: "center", marginBottom: "36px" }}>
+        <span className="badge badge-gold" style={{ marginBottom: "8px" }}>BOKA ONLINE</span>
+        <h1 className="section-title" style={{ fontSize: "clamp(2rem, 5vw, 3rem)", marginBottom: "12px" }}>
           Boka DJ Valmel För Ditt <span className="gradient-text">Evenemang</span>
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "1.05rem", maxWidth: "650px", margin: "0 auto" }}>
+        <p style={{ color: "var(--text-muted)", fontSize: "clamp(0.95rem, 2vw, 1.05rem)", maxWidth: "650px", margin: "0 auto" }}>
           Fyll i formuläret nedan för att räkna ut pris och skicka in en bokningsförfrågan. Svar lämnas vanligtvis inom 2 timmar!
         </p>
       </div>
 
       {confirmedBooking ? (
-        <div className="glass-panel-glow" style={{ padding: "50px", maxWidth: "700px", margin: "0 auto", textAlign: "center" }}>
-          <div style={{ fontSize: "4rem", marginBottom: "16px" }}>🎉</div>
-          <h2 style={{ fontSize: "2.2rem", color: "#fff", marginBottom: "12px" }}>Tack För Din Bokningsförfrågan!</h2>
-          <p style={{ color: "var(--text-muted)", fontSize: "1rem", marginBottom: "24px" }}>
+        <div className="glass-panel-glow" style={{ padding: "30px", maxWidth: "650px", margin: "0 auto", textAlign: "center" }}>
+          <div style={{ fontSize: "3.5rem", marginBottom: "12px" }}>🎉</div>
+          <h2 style={{ fontSize: "1.8rem", color: "#fff", marginBottom: "10px" }}>Tack För Din Bokningsförfrågan!</h2>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", marginBottom: "20px" }}>
             Din förfrågan har registrerats i vårt system och skickats direkt till DJ Valmels kalender.
           </p>
 
-          <div style={{ background: "rgba(255,255,255,0.03)", padding: "24px", borderRadius: "12px", border: "1px solid var(--border-color)", textAlign: "left", marginBottom: "30px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", fontSize: "0.95rem" }}>
+          <div style={{ background: "rgba(255,255,255,0.03)", padding: "18px", borderRadius: "10px", border: "1px solid var(--border-color)", textAlign: "left", marginBottom: "24px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontSize: "0.9rem" }}>
               <span style={{ color: "var(--text-muted)" }}>Boknings-ID:</span>
               <strong style={{ color: "var(--primary)" }}>{confirmedBooking.id}</strong>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", fontSize: "0.95rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontSize: "0.9rem" }}>
               <span style={{ color: "var(--text-muted)" }}>Kund:</span>
               <strong style={{ color: "#fff" }}>{confirmedBooking.name}</strong>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", fontSize: "0.95rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontSize: "0.9rem" }}>
               <span style={{ color: "var(--text-muted)" }}>Typ & Datum:</span>
               <strong style={{ color: "#fff" }}>{confirmedBooking.eventType} ({confirmedBooking.date})</strong>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "12px", fontSize: "0.95rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px", fontSize: "0.9rem" }}>
               <span style={{ color: "var(--text-muted)" }}>Valt Paket:</span>
               <strong style={{ color: "var(--secondary)" }}>{confirmedBooking.packageType}</strong>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "1.1rem", borderTop: "1px solid var(--border-color)", paddingTop: "12px", marginTop: "12px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "1rem", borderTop: "1px solid var(--border-color)", paddingTop: "10px", marginTop: "10px" }}>
               <span style={{ color: "#fff" }}>Beräknat Pris (ex. moms):</span>
               <strong style={{ color: "var(--accent-gold)" }}>{confirmedBooking.totalPrice.toLocaleString("sv-SE")} kr</strong>
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: "16px", justifyContent: "center" }}>
+          <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
             <button
               onClick={() => {
                 setConfirmedBooking(null)
                 setStep(1)
               }}
               className="btn btn-secondary"
+              style={{ width: "100%" }}
             >
               Gör En Ny Bokning
             </button>
           </div>
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "40px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
           {/* Main Booking Wizard */}
-          <div className="glass-panel" style={{ padding: "40px" }}>
+          <div className="glass-panel" style={{ padding: "24px" }}>
             {/* Step Indicators */}
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "30px", borderBottom: "1px solid var(--border-color)", paddingBottom: "16px" }}>
-              <div style={{ color: step >= 1 ? "var(--primary)" : "var(--text-muted)", fontWeight: "600", fontSize: "0.9rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "24px", borderBottom: "1px solid var(--border-color)", paddingBottom: "12px", gap: "6px" }}>
+              <div style={{ color: step >= 1 ? "var(--primary)" : "var(--text-muted)", fontWeight: "600", fontSize: "0.8rem" }}>
                 1. Event & Datum
               </div>
-              <div style={{ color: step >= 2 ? "var(--primary)" : "var(--text-muted)", fontWeight: "600", fontSize: "0.9rem" }}>
+              <div style={{ color: step >= 2 ? "var(--primary)" : "var(--text-muted)", fontWeight: "600", fontSize: "0.8rem" }}>
                 2. Paket & Tillval
               </div>
-              <div style={{ color: step >= 3 ? "var(--primary)" : "var(--text-muted)", fontWeight: "600", fontSize: "0.9rem" }}>
-                3. Dina Uppgifter
+              <div style={{ color: step >= 3 ? "var(--primary)" : "var(--text-muted)", fontWeight: "600", fontSize: "0.8rem" }}>
+                3. Kontakt
               </div>
             </div>
 
@@ -144,7 +145,7 @@ const Booking = () => {
               {/* STEP 1 */}
               {step === 1 && (
                 <div>
-                  <h3 style={{ color: "#fff", fontSize: "1.3rem", marginBottom: "20px" }}>Steg 1: Om Eventet</h3>
+                  <h3 style={{ color: "#fff", fontSize: "1.2rem", marginBottom: "16px" }}>Steg 1: Om Eventet</h3>
 
                   <div className="form-group">
                     <label>Typ Av Evenemang *</label>
@@ -158,7 +159,7 @@ const Booking = () => {
                     </select>
                   </div>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px" }}>
                     <div className="form-group">
                       <label>Önskat Datum *</label>
                       <input
@@ -192,7 +193,7 @@ const Booking = () => {
                     </select>
                   </div>
 
-                  <button type="button" onClick={() => setStep(2)} className="btn btn-primary" style={{ width: "100%", marginTop: "10px" }}>
+                  <button type="button" onClick={() => setStep(2)} className="btn btn-primary" style={{ width: "100%", marginTop: "8px" }}>
                     Nästa Steg: Välj Paket →
                   </button>
                 </div>
@@ -201,31 +202,32 @@ const Booking = () => {
               {/* STEP 2 */}
               {step === 2 && (
                 <div>
-                  <h3 style={{ color: "#fff", fontSize: "1.3rem", marginBottom: "20px" }}>Steg 2: Paket & Tillval</h3>
+                  <h3 style={{ color: "#fff", fontSize: "1.2rem", marginBottom: "16px" }}>Steg 2: Paket & Tillval</h3>
 
                   <div className="form-group">
                     <label>Välj Huvudpaket</label>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                       {packages.map((pkg) => (
                         <div
                           key={pkg.name}
                           onClick={() => setPackageType(pkg.name)}
                           style={{
-                            padding: "16px",
+                            padding: "14px",
                             borderRadius: "10px",
                             background: packageType === pkg.name ? "rgba(0, 242, 254, 0.12)" : "rgba(255,255,255,0.03)",
                             border: packageType === pkg.name ? "1px solid var(--primary)" : "1px solid var(--border-color)",
                             cursor: "pointer",
                             display: "flex",
                             justifyContent: "space-between",
-                            alignItems: "center"
+                            alignItems: "center",
+                            gap: "10px"
                           }}
                         >
                           <div>
-                            <div style={{ fontWeight: "700", color: "#fff", fontSize: "1rem" }}>{pkg.name}</div>
-                            <div style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>{pkg.desc}</div>
+                            <div style={{ fontWeight: "700", color: "#fff", fontSize: "0.95rem" }}>{pkg.name}</div>
+                            <div style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>{pkg.desc}</div>
                           </div>
-                          <div style={{ fontWeight: "800", color: "var(--primary)", fontSize: "1.1rem", whiteSpace: "nowrap" }}>
+                          <div style={{ fontWeight: "800", color: "var(--primary)", fontSize: "1rem", whiteSpace: "nowrap" }}>
                             {pkg.price.toLocaleString("sv-SE")} kr
                           </div>
                         </div>
@@ -233,9 +235,9 @@ const Booking = () => {
                     </div>
                   </div>
 
-                  <div className="form-group" style={{ marginTop: "24px" }}>
+                  <div className="form-group" style={{ marginTop: "20px" }}>
                     <label>Tillval Utrustning & Upplevelser</label>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                       {availableAddons.map((addon) => {
                         const isChecked = selectedAddons.includes(addon.id)
                         return (
@@ -243,20 +245,21 @@ const Booking = () => {
                             key={addon.id}
                             onClick={() => toggleAddon(addon.id)}
                             style={{
-                              padding: "12px 16px",
+                              padding: "10px 14px",
                               borderRadius: "8px",
                               background: isChecked ? "rgba(157, 78, 221, 0.15)" : "rgba(255,255,255,0.02)",
                               border: isChecked ? "1px solid rgba(157, 78, 221, 0.4)" : "1px solid var(--border-color)",
                               cursor: "pointer",
                               display: "flex",
                               justifyContent: "space-between",
-                              alignItems: "center"
+                              alignItems: "center",
+                              gap: "8px"
                             }}
                           >
-                            <span style={{ color: isChecked ? "#fff" : "var(--text-muted)", fontSize: "0.9rem", fontWeight: isChecked ? "600" : "normal" }}>
+                            <span style={{ color: isChecked ? "#fff" : "var(--text-muted)", fontSize: "0.85rem", fontWeight: isChecked ? "600" : "normal" }}>
                               {addon.name}
                             </span>
-                            <span style={{ color: "var(--accent-gold)", fontSize: "0.9rem", fontWeight: "600" }}>
+                            <span style={{ color: "var(--accent-gold)", fontSize: "0.85rem", fontWeight: "600", whiteSpace: "nowrap" }}>
                               +{addon.price.toLocaleString("sv-SE")} kr
                             </span>
                           </div>
@@ -265,12 +268,12 @@ const Booking = () => {
                     </div>
                   </div>
 
-                  <div style={{ display: "flex", gap: "12px", marginTop: "24px" }}>
+                  <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
                     <button type="button" onClick={() => setStep(1)} className="btn btn-secondary" style={{ flex: 1 }}>
                       ← Tillbaka
                     </button>
                     <button type="button" onClick={() => setStep(3)} className="btn btn-primary" style={{ flex: 2 }}>
-                      Nästa Steg: Kontakt →
+                      Nästa Steg →
                     </button>
                   </div>
                 </div>
@@ -279,7 +282,7 @@ const Booking = () => {
               {/* STEP 3 */}
               {step === 3 && (
                 <div>
-                  <h3 style={{ color: "#fff", fontSize: "1.3rem", marginBottom: "20px" }}>Steg 3: Dina Kontaktuppgifter</h3>
+                  <h3 style={{ color: "#fff", fontSize: "1.2rem", marginBottom: "16px" }}>Steg 3: Dina Kontaktuppgifter</h3>
 
                   <div className="form-group">
                     <label>Ditt Namn / Företag *</label>
@@ -293,7 +296,7 @@ const Booking = () => {
                     />
                   </div>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "12px" }}>
                     <div className="form-group">
                       <label>E-postadress *</label>
                       <input
@@ -329,12 +332,12 @@ const Booking = () => {
                     ></textarea>
                   </div>
 
-                  <div style={{ display: "flex", gap: "12px", marginTop: "24px" }}>
+                  <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
                     <button type="button" onClick={() => setStep(2)} className="btn btn-secondary" style={{ flex: 1 }}>
                       ← Tillbaka
                     </button>
-                    <button type="submit" className="btn btn-primary" style={{ flex: 2, padding: "14px" }}>
-                      ⚡ Skicka Bokningsförfrågan
+                    <button type="submit" className="btn btn-primary" style={{ flex: 2, padding: "12px" }}>
+                      ⚡ Skicka Bokning
                     </button>
                   </div>
                 </div>
@@ -344,11 +347,11 @@ const Booking = () => {
 
           {/* Live Price Estimation Box */}
           <div>
-            <div className="glass-panel-glow" style={{ padding: "30px", position: "sticky", top: "100px" }}>
-              <span className="badge badge-primary" style={{ marginBottom: "12px" }}>PRISÖVERSIKT</span>
-              <h3 style={{ color: "#fff", fontSize: "1.4rem", marginBottom: "20px" }}>Beräknad Offert</h3>
+            <div className="glass-panel-glow" style={{ padding: "24px" }}>
+              <span className="badge badge-primary" style={{ marginBottom: "8px" }}>PRISÖVERSIKT</span>
+              <h3 style={{ color: "#fff", fontSize: "1.2rem", marginBottom: "16px" }}>Beräknad Offert</h3>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "20px", fontSize: "0.95rem" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "16px", fontSize: "0.9rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", color: "var(--text-muted)" }}>
                   <span>Eventtyp:</span>
                   <strong style={{ color: "#fff" }}>{eventType}</strong>
@@ -363,12 +366,12 @@ const Booking = () => {
                 </div>
 
                 {selectedAddons.length > 0 && (
-                  <div style={{ borderTop: "1px dashed var(--border-color)", paddingTop: "10px", marginTop: "4px" }}>
-                    <div style={{ fontSize: "0.85rem", color: "var(--secondary)", marginBottom: "6px", fontWeight: "600" }}>Valda Tillval:</div>
+                  <div style={{ borderTop: "1px dashed var(--border-color)", paddingTop: "8px", marginTop: "2px" }}>
+                    <div style={{ fontSize: "0.8rem", color: "var(--secondary)", marginBottom: "4px", fontWeight: "600" }}>Valda Tillval:</div>
                     {selectedAddons.map((id) => {
                       const item = availableAddons.find((a) => a.id === id)
                       return (
-                        <div key={id} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "4px" }}>
+                        <div key={id} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: "3px" }}>
                           <span>• {item?.id}</span>
                           <span>+{item?.price.toLocaleString("sv-SE")} kr</span>
                         </div>
@@ -378,15 +381,15 @@ const Booking = () => {
                 )}
               </div>
 
-              <div style={{ borderTop: "1px solid var(--border-color)", paddingTop: "16px", marginTop: "16px" }}>
+              <div style={{ borderTop: "1px solid var(--border-color)", paddingTop: "14px", marginTop: "14px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                  <span style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>Uppskattad Totalsumma:</span>
-                  <span style={{ fontSize: "1.8rem", fontWeight: "900", color: "var(--accent-gold)" }}>
-                    {estimatedPrice.toLocaleString("sv-SE")} <span style={{ fontSize: "0.9rem", color: "var(--text-muted)", fontWeight: "normal" }}>kr</span>
+                  <span style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>Totalsumma:</span>
+                  <span style={{ fontSize: "1.6rem", fontWeight: "900", color: "var(--accent-gold)" }}>
+                    {estimatedPrice.toLocaleString("sv-SE")} <span style={{ fontSize: "0.85rem", color: "var(--text-muted)", fontWeight: "normal" }}>kr</span>
                   </span>
                 </div>
-                <div style={{ fontSize: "0.75rem", color: "var(--text-dim)", marginTop: "6px" }}>
-                  * Exklusive moms (25%). Slutgiltig bekräftad offert skickas via e-post.
+                <div style={{ fontSize: "0.72rem", color: "var(--text-dim)", marginTop: "4px" }}>
+                  * Exklusive moms (25%). Slutgiltig offertbekräftelse via e-post.
                 </div>
               </div>
             </div>

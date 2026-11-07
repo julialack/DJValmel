@@ -34,66 +34,66 @@ const Login = () => {
   }
 
   return (
-    <div className="container section-padding" style={{ maxWidth: "800px" }}>
-      <div style={{ textAlign: "center", marginBottom: "40px" }}>
-        <span className="badge badge-primary" style={{ marginBottom: "12px" }}>PORTAL ACCESS</span>
-        <h1 style={{ fontSize: "2.5rem", color: "#fff", fontWeight: "900", marginBottom: "12px" }}>
+    <div className="container section-padding" style={{ maxWidth: "750px" }}>
+      <div style={{ textAlign: "center", marginBottom: "30px" }}>
+        <span className="badge badge-primary" style={{ marginBottom: "8px" }}>PORTAL ACCESS</span>
+        <h1 className="section-title" style={{ fontSize: "clamp(1.8rem, 4vw, 2.3rem)", marginBottom: "8px" }}>
           Administrationsinloggning
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "1rem" }}>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.95rem" }}>
           Välj portal för att logga in som <strong>IT-Support (System)</strong> eller <strong>DJ Valmel (Artist)</strong>.
         </p>
       </div>
 
       {user ? (
-        <div className="glass-panel-glow" style={{ padding: "40px", textAlign: "center" }}>
-          <div style={{ fontSize: "3rem", marginBottom: "12px" }}>{user.avatar}</div>
-          <h2 style={{ color: "#fff", fontSize: "1.6rem", marginBottom: "8px" }}>
+        <div className="glass-panel-glow" style={{ padding: "30px", textAlign: "center" }}>
+          <div style={{ fontSize: "2.5rem", marginBottom: "8px" }}>{user.avatar}</div>
+          <h2 style={{ color: "#fff", fontSize: "1.4rem", marginBottom: "6px" }}>
             Du är inloggad som <span className="gradient-text">{user.name}</span>
           </h2>
-          <p style={{ color: "var(--text-muted)", marginBottom: "24px" }}>
+          <p style={{ color: "var(--text-muted)", marginBottom: "20px", fontSize: "0.9rem" }}>
             Aktiv roll: <strong>{user.role === "it_admin" ? "IT System Admin" : "DJ Valmel Admin"}</strong>
           </p>
 
-          <div style={{ display: "flex", gap: "16px", justifyContent: "center" }}>
-            <button onClick={() => navigate("/admin")} className="btn btn-primary">
+          <div style={{ display: "flex", gap: "12px", justifyContent: "center" }}>
+            <button onClick={() => navigate("/admin")} className="btn btn-primary" style={{ width: "100%" }}>
               ⚙️ Öppna Admin Dashboard
             </button>
           </div>
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "30px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
           {/* Preset One-Click Role Logins */}
-          <div className="glass-panel-glow" style={{ padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div className="glass-panel-glow" style={{ padding: "24px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <div>
-              <span className="badge badge-purple" style={{ marginBottom: "16px" }}>SNABB-INLOGGNING</span>
-              <h3 style={{ color: "#fff", fontSize: "1.4rem", marginBottom: "16px" }}>Välj Din Roll</h3>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: "24px" }}>
+              <span className="badge badge-purple" style={{ marginBottom: "12px" }}>SNABB-INLOGGNING</span>
+              <h3 style={{ color: "#fff", fontSize: "1.2rem", marginBottom: "12px" }}>Välj Din Roll</h3>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", marginBottom: "18px" }}>
                 Klicka på önskad roll för omedelbar tillgång till motsvarande administrationspanel:
               </p>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 <button
                   onClick={handleITLogin}
                   className="btn btn-purple"
-                  style={{ width: "100%", padding: "16px", justifyContent: "flex-start", gap: "12px", textAlign: "left" }}
+                  style={{ width: "100%", padding: "14px", justifyContent: "flex-start", gap: "10px", textAlign: "left" }}
                 >
-                  <span style={{ fontSize: "1.5rem" }}>⚙️</span>
+                  <span style={{ fontSize: "1.3rem" }}>⚙️</span>
                   <div>
-                    <div style={{ fontWeight: "700", fontSize: "1rem" }}>Logga in som IT-Admin</div>
-                    <div style={{ fontSize: "0.75rem", opacity: 0.8 }}>Systemhälsa, loggar, API & inställningar</div>
+                    <div style={{ fontWeight: "700", fontSize: "0.95rem" }}>Logga in som IT-Admin</div>
+                    <div style={{ fontSize: "0.72rem", opacity: 0.85 }}>Systemhälsa, loggar & inställningar</div>
                   </div>
                 </button>
 
                 <button
                   onClick={handleDJLogin}
                   className="btn btn-primary"
-                  style={{ width: "100%", padding: "16px", justifyContent: "flex-start", gap: "12px", textAlign: "left" }}
+                  style={{ width: "100%", padding: "14px", justifyContent: "flex-start", gap: "10px", textAlign: "left" }}
                 >
-                  <span style={{ fontSize: "1.5rem" }}>🎧</span>
+                  <span style={{ fontSize: "1.3rem" }}>🎧</span>
                   <div>
-                    <div style={{ fontWeight: "700", fontSize: "1rem" }}>Logga in som DJ Valmel</div>
-                    <div style={{ fontSize: "0.75rem", opacity: 0.8 }}>Bokningar, kalender, mixar & önskelåtar</div>
+                    <div style={{ fontWeight: "700", fontSize: "0.95rem" }}>Logga in som DJ Valmel</div>
+                    <div style={{ fontSize: "0.72rem", opacity: 0.85 }}>Bokningar, kalender & önskelåtar</div>
                   </div>
                 </button>
               </div>
@@ -101,11 +101,11 @@ const Login = () => {
           </div>
 
           {/* Traditional Login Form */}
-          <div className="glass-panel" style={{ padding: "32px" }}>
-            <h3 style={{ color: "#fff", fontSize: "1.3rem", marginBottom: "20px" }}>Standard Form-Inloggning</h3>
+          <div className="glass-panel" style={{ padding: "24px" }}>
+            <h3 style={{ color: "#fff", fontSize: "1.2rem", marginBottom: "16px" }}>Standard Form-Inloggning</h3>
 
             {error && (
-              <div style={{ background: "rgba(239, 68, 68, 0.15)", border: "1px solid rgba(239, 68, 68, 0.4)", color: "#ef4444", padding: "12px", borderRadius: "8px", fontSize: "0.85rem", marginBottom: "16px" }}>
+              <div style={{ background: "rgba(239, 68, 68, 0.15)", border: "1px solid rgba(239, 68, 68, 0.4)", color: "#ef4444", padding: "10px", borderRadius: "8px", fontSize: "0.8rem", marginBottom: "14px" }}>
                 {error}
               </div>
             )}
@@ -135,7 +135,7 @@ const Login = () => {
                 />
               </div>
 
-              <button type="submit" className="btn btn-secondary" style={{ width: "100%", padding: "12px", marginTop: "10px" }}>
+              <button type="submit" className="btn btn-secondary" style={{ width: "100%", padding: "12px", marginTop: "6px" }}>
                 Logga In med Form
               </button>
             </form>

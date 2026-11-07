@@ -36,31 +36,31 @@ const Music = () => {
 
   return (
     <div className="container section-padding">
-      <div style={{ textAlign: "center", marginBottom: "50px" }}>
-        <span className="badge badge-primary" style={{ marginBottom: "12px" }}>LYSSNA & MISA</span>
-        <h1 style={{ fontSize: "3rem", color: "#fff", fontWeight: "900", marginBottom: "16px" }}>
+      <div style={{ textAlign: "center", marginBottom: "36px" }}>
+        <span className="badge badge-primary" style={{ marginBottom: "8px" }}>LYSSNA & MIXAR</span>
+        <h1 className="section-title" style={{ fontSize: "clamp(2rem, 5vw, 3rem)", marginBottom: "12px" }}>
           Musik, Mixar & <span className="gradient-text">Önskelåtar</span>
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "1.05rem", maxWidth: "650px", margin: "0 auto" }}>
+        <p style={{ color: "var(--text-muted)", fontSize: "clamp(0.95rem, 2vw, 1.05rem)", maxWidth: "650px", margin: "0 auto" }}>
           Utforska DJ Valmels senaste live-set, studio-mixar och skicka in dina önskelåtar inför nästa spelning!
         </p>
       </div>
 
       {/* Category Filter Pills */}
-      <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap", marginBottom: "40px" }}>
+      <div style={{ display: "flex", gap: "8px", justifyContent: "center", flexWrap: "wrap", marginBottom: "30px" }}>
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className="btn btn-secondary"
+            className="btn btn-secondary btn-sm"
             style={{
-              padding: "8px 20px",
+              padding: "6px 14px",
               borderRadius: "20px",
-              fontSize: "0.9rem",
+              fontSize: "0.85rem",
               background: activeCategory === cat ? "linear-gradient(135deg, #00f2fe, #4facfe)" : "rgba(255,255,255,0.06)",
               color: activeCategory === cat ? "#050b14" : "var(--text-main)",
               borderColor: activeCategory === cat ? "transparent" : "var(--border-color)",
-              boxShadow: activeCategory === cat ? "0 0 15px rgba(0,242,254,0.3)" : "none"
+              boxShadow: activeCategory === cat ? "0 0 12px rgba(0,242,254,0.3)" : "none"
             }}
           >
             {cat}
@@ -68,67 +68,117 @@ const Music = () => {
         ))}
       </div>
 
-      {/* Track List */}
-      <div className="glass-panel" style={{ padding: "24px", marginBottom: "60px" }}>
-        <table className="custom-table">
-          <thead>
-            <tr>
-              <th style={{ width: "60px" }}>Spela</th>
-              <th>Mix / Titel</th>
-              <th>Kategori</th>
-              <th>Längd</th>
-              <th>Spelningar</th>
-              <th style={{ textAlign: "right" }}>Länk</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredTracks.map((track) => (
-              <tr key={track.id}>
-                <td>
-                  <button
-                    onClick={() => setPlayingId(playingId === track.id ? null : track.id)}
-                    style={{
-                      width: "36px",
-                      height: "36px",
-                      borderRadius: "50%",
-                      background: playingId === track.id ? "var(--accent-pink)" : "var(--primary)",
-                      color: "#050b14",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "0.9rem",
-                      fontWeight: "bold"
-                    }}
-                  >
-                    {playingId === track.id ? "⏸" : "▶"}
-                  </button>
-                </td>
-                <td>
-                  <div style={{ fontWeight: "600", color: "#fff" }}>{track.title}</div>
-                  {playingId === track.id && (
-                    <div style={{ fontSize: "0.75rem", color: "var(--primary)" }}>Spelar nu... 🔊</div>
-                  )}
-                </td>
-                <td>
-                  <span className="badge badge-purple">{track.category}</span>
-                </td>
-                <td>{track.duration}</td>
-                <td style={{ color: "var(--text-muted)" }}>{track.plays}</td>
-                <td style={{ textAlign: "right" }}>
-                  <a href="#soundcloud" className="btn btn-secondary btn-sm">SoundCloud ↗</a>
-                </td>
+      {/* Track List - Card View for Mobile & Table for Desktop */}
+      <div className="glass-panel" style={{ padding: "20px", marginBottom: "40px" }}>
+        {/* Desktop Table View */}
+        <div className="desktop-table-wrapper" style={{ overflowX: "auto" }}>
+          <table className="custom-table">
+            <thead>
+              <tr>
+                <th style={{ width: "50px" }}>Spela</th>
+                <th>Mix / Titel</th>
+                <th>Kategori</th>
+                <th>Längd</th>
+                <th>Spelningar</th>
+                <th style={{ textAlign: "right" }}>Länk</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredTracks.map((track) => (
+                <tr key={track.id}>
+                  <td>
+                    <button
+                      onClick={() => setPlayingId(playingId === track.id ? null : track.id)}
+                      style={{
+                        width: "36px",
+                        height: "36px",
+                        borderRadius: "50%",
+                        background: playingId === track.id ? "var(--accent-pink)" : "var(--primary)",
+                        color: "#050b14",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "0.9rem",
+                        fontWeight: "bold"
+                      }}
+                    >
+                      {playingId === track.id ? "⏸" : "▶"}
+                    </button>
+                  </td>
+                  <td>
+                    <div style={{ fontWeight: "600", color: "#fff" }}>{track.title}</div>
+                    {playingId === track.id && (
+                      <div style={{ fontSize: "0.75rem", color: "var(--primary)" }}>Spelar nu... 🔊</div>
+                    )}
+                  </td>
+                  <td>
+                    <span className="badge badge-purple">{track.category}</span>
+                  </td>
+                  <td>{track.duration}</td>
+                  <td style={{ color: "var(--text-muted)" }}>{track.plays}</td>
+                  <td style={{ textAlign: "right" }}>
+                    <a href="#soundcloud" className="btn btn-secondary btn-sm">SoundCloud ↗</a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile Song Cards List */}
+        <div className="mobile-track-cards" style={{ display: "none", flexDirection: "column", gap: "12px" }}>
+          {filteredTracks.map((track) => (
+            <div
+              key={track.id}
+              style={{
+                background: "rgba(255,255,255,0.03)",
+                padding: "14px",
+                borderRadius: "10px",
+                border: "1px solid var(--border-color)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "12px"
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <button
+                  onClick={() => setPlayingId(playingId === track.id ? null : track.id)}
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    background: playingId === track.id ? "var(--accent-pink)" : "var(--primary)",
+                    color: "#050b14",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                    flexShrink: 0
+                  }}
+                >
+                  {playingId === track.id ? "⏸" : "▶"}
+                </button>
+                <div>
+                  <div style={{ fontWeight: "700", color: "#fff", fontSize: "0.95rem" }}>{track.title}</div>
+                  <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "2px" }}>
+                    <span className="badge badge-purple" style={{ padding: "2px 8px", fontSize: "0.7rem", marginRight: "6px" }}>{track.category}</span>
+                    <span>{track.duration}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Live Song Request Box for Audience */}
-      <div className="glass-panel-glow" style={{ padding: "36px", maxWidth: "700px", margin: "0 auto" }}>
-        <div style={{ textAlign: "center", marginBottom: "24px" }}>
-          <span className="badge badge-gold" style={{ marginBottom: "10px" }}>ÖNSKELÅTSBOX</span>
-          <h2 style={{ fontSize: "1.8rem", color: "#fff", fontWeight: "800" }}>Skicka LåtönskeMål Till DJn 🎵</h2>
-          <p style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>
+      <div className="glass-panel-glow" style={{ padding: "24px", maxWidth: "600px", margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          <span className="badge badge-gold" style={{ marginBottom: "8px" }}>ÖNSKELÅTSBOX</span>
+          <h2 style={{ fontSize: "1.5rem", color: "#fff", fontWeight: "800" }}>Skicka Låtönskemål Till DJn 🎵</h2>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>
             Är du på en spelning just nu? Skicka din låtönskan direkt till DJ Valmels skärm i dj-båset!
           </p>
         </div>
@@ -138,10 +188,11 @@ const Music = () => {
             background: "rgba(16, 185, 129, 0.15)",
             border: "1px solid rgba(16, 185, 129, 0.4)",
             color: "#10b981",
-            padding: "14px",
-            borderRadius: "10px",
+            padding: "12px",
+            borderRadius: "8px",
             textAlign: "center",
-            marginBottom: "20px",
+            marginBottom: "16px",
+            fontSize: "0.9rem",
             fontWeight: "600"
           }}>
             ✅ Din låtönskan har skickats till DJ Valmels dj-bås!
@@ -172,7 +223,7 @@ const Music = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" style={{ width: "100%", padding: "14px", marginTop: "10px" }}>
+          <button type="submit" className="btn btn-primary" style={{ width: "100%", padding: "12px" }}>
             🚀 Skicka Önskelåt Till DJn
           </button>
         </form>
