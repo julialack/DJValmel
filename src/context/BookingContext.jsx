@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react"
+import { supabase } from "../lib/supabaseClient"
 
 const BookingContext = createContext()
 
@@ -96,7 +97,6 @@ export const BookingProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : INITIAL_SYSTEM_LOGS
   })
 
-  // Feature Flags managed by IT Admin
   const [systemFlags, setSystemFlags] = useState(() => {
     const saved = localStorage.getItem("dj_valmel_flags")
     return saved ? JSON.parse(saved) : {
@@ -107,6 +107,28 @@ export const BookingProvider = ({ children }) => {
       smsNotifications: true
     }
   })
+
+  // Supabase Fetch on Load if connected
+  useEffect(() => {
+    if (!supabase) return
+
+    const fetchSupabaseData = async () => {
+      try {
+        const { data: bData, error: bErr } = await supabase.from("bookings").select("*")
+        if (!bErr && bData && bData.length > 0) setBookings(bData)
+
+        const { data: gData, error: gErr } = await supabase.from("gigs").select("*")
+        if (!gErr && gData && gData.length > 0) setGigs(gData)
+
+        const { data: srData, error: srErr } = await supabase.from("song_requests").select("*")
+        if (!srErr && srData && srData.length > 0) setSongRequests(srData)
+      } catch (err) {
+        console.warn("Supabase fetch fallback to local storage:", err)
+      }
+    }
+
+    fetchSupabaseData()
+  }, [])
 
   useEffect(() => {
     localStorage.setItem("dj_valmel_bookings", JSON.stringify(bookings))
@@ -128,7 +150,7 @@ export const BookingProvider = ({ children }) => {
     localStorage.setItem("dj_valmel_flags", JSON.stringify(systemFlags))
   }, [systemFlags])
 
-  const addBooking = (newBookingData) => {
+  const addBooking = async (newBookingData) => {
     const newId = `BOK-${Math.floor(1000 + Math.random() * 9000)}`
     const booking = {
       id: newId,
@@ -136,28 +158,51 @@ export const BookingProvider = ({ children }) => {
       status: "Väntar på bekräftelse",
       createdAt: new Date().toISOString().split("T")[0]
     }
-    setBookings((prev) => [booking, ...prev])
 
-    // Log event for IT Admin
+    setBookings((prev) => [booking, ...prev])
     addLog("SUCCESS", "BOOKING_ENGINE", `Bokningsförfrågan ${newId} skapad av ${newBookingData.name}`)
+
+    if (supabase) {
+      try {
+        await supabase.from("bookings").insert([booking])
+      } catch (err) {
+        console.error("Supabase insert booking error:", err)
+      }
+    }
 
     return booking
   }
 
-  const updateBookingStatus = (id, newStatus) => {
+  const updateBookingStatus = async (id, newStatus) => {
     setBookings((prev) =>
       prev.map((b) => (b.id === id ? { ...b, status: newStatus } : b))
     )
     addLog("INFO", "DJ_ADMIN", `Bokningsstatus för ${id} ändrad till '${newStatus}'`)
+
+    if (supabase) {
+      try {
+        await supabase.from("bookings").update({ status: newStatus }).eq("id", id)
+      } catch (err) {
+        console.error("Supabase update booking status error:", err)
+      }
+    }
   }
 
-  const addGig = (gigData) => {
+  const addGig = async (gigData) => {
     const newGig = { id: Date.now(), ...gigData }
     setGigs((prev) => [newGig, ...prev])
     addLog("INFO", "CALENDAR", `Ny spelning tillagd: ${gigData.title}`)
+
+    if (supabase) {
+      try {
+        await supabase.from("gigs").insert([newGig])
+      } catch (err) {
+        console.error("Supabase insert gig error:", err)
+      }
+    }
   }
 
-  const addSongRequest = (song, requestedBy) => {
+  const addSongRequest = async (song, requestedBy) => {
     const newRequest = {
       id: Date.now(),
       song,
@@ -166,12 +211,28 @@ export const BookingProvider = ({ children }) => {
       status: "Väntar"
     }
     setSongRequests((prev) => [newRequest, ...prev])
+
+    if (supabase) {
+      try {
+        await supabase.from("song_requests").insert([newRequest])
+      } catch (err) {
+        console.error("Supabase insert song request error:", err)
+      }
+    }
   }
 
-  const updateSongRequestStatus = (id, status) => {
+  const updateSongRequestStatus = async (id, status) => {
     setSongRequests((prev) =>
       prev.map((sr) => (sr.id === id ? { ...sr, status } : sr))
     )
+
+    if (supabase) {
+      try {
+        await supabase.from("song_requests").update({ status }).eq("id", id)
+      } catch (err) {
+        console.error("Supabase update song request error:", err)
+      }
+    }
   }
 
   const addLog = (level, module, message) => {
@@ -223,6 +284,8 @@ export const BookingProvider = ({ children }) => {
     </BookingContext.Provider>
   )
 }
+
+export default BookingContext
 
 export const useBooking = () => {
   const context = useContext(BookingContext)
