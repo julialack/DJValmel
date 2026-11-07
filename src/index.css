@@ -34,13 +34,17 @@
   padding: 0;
 }
 
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);
   font-family: var(--font-body);
   line-height: 1.6;
   min-height: 100vh;
-  overflow-x: hidden;
   background-image:
     radial-gradient(circle at 15% 15%, rgba(157, 78, 221, 0.15) 0%, transparent 40%),
     radial-gradient(circle at 85% 85%, rgba(0, 242, 254, 0.12) 0%, transparent 40%),
@@ -53,6 +57,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
+  overflow-x: hidden;
 }
 
 a {
@@ -107,7 +112,7 @@ button {
   box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
 }
 
-/* Utility classes */
+/* Containers */
 .container {
   max-width: 1240px;
   margin: 0 auto;
@@ -324,6 +329,7 @@ select.form-control {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
 }
 
 .custom-table td {
@@ -335,4 +341,75 @@ select.form-control {
 
 .custom-table tr:hover td {
   background: rgba(255, 255, 255, 0.02);
+}
+
+/* ====================================================== */
+/* MOBILE RESPONSIVE MEDIA QUERIES                        */
+/* ====================================================== */
+
+@media (max-width: 900px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .section-padding {
+    padding: 40px 0;
+  }
+
+  /* Responsive Navbar */
+  .nav-header-container {
+    flex-direction: column;
+    height: auto !important;
+    padding: 14px 0;
+    gap: 14px;
+  }
+
+  .nav-links-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px !important;
+    width: 100%;
+  }
+
+  .nav-links-menu a {
+    font-size: 0.85rem !important;
+    padding: 6px 12px !important;
+  }
+
+  /* Audio player bottom bar mobile adjustment */
+  .audio-player-container {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    padding: 8px 14px !important;
+  }
+
+  .audio-player-info {
+    min-width: unset !important;
+  }
+
+  .audio-player-waveform {
+    display: none !important;
+  }
+
+  /* Grid layouts collapse to single column */
+  .form-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  .btn {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    width: 100%;
+  }
+
+  .glass-panel, .glass-panel-glow {
+    padding: 20px !important;
+  }
 }

@@ -32,7 +32,7 @@ const AudioPlayerBar = () => {
         bottom: 0,
         left: 0,
         right: 0,
-        background: "rgba(10, 12, 20, 0.92)",
+        background: "rgba(10, 12, 20, 0.95)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         borderTop: "1px solid rgba(0, 242, 254, 0.2)",
@@ -41,30 +41,31 @@ const AudioPlayerBar = () => {
         boxShadow: "0 -10px 30px rgba(0,0,0,0.5)"
       }}
     >
-      <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "20px" }}>
+      <div className="container audio-player-container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px" }}>
         {/* Track info & Equalizer */}
-        <div style={{ display: "flex", alignItems: "center", gap: "16px", minWidth: "260px" }}>
+        <div className="audio-player-info" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{
-            width: "42px",
-            height: "42px",
+            width: "38px",
+            height: "38px",
             borderRadius: "8px",
             background: "linear-gradient(135deg, #7209b7, #00f2fe)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "1.2rem",
-            boxShadow: isPlaying ? "0 0 12px rgba(0, 242, 254, 0.5)" : "none"
+            fontSize: "1.1rem",
+            boxShadow: isPlaying ? "0 0 12px rgba(0, 242, 254, 0.5)" : "none",
+            flexShrink: 0
           }}>
             🎛️
           </div>
 
-          <div>
+          <div style={{ overflow: "hidden" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <span style={{ fontSize: "0.9rem", fontWeight: "600", color: "#fff", whiteSpace: "nowrap" }}>
+              <span style={{ fontSize: "0.85rem", fontWeight: "600", color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                 {currentTrack.title}
               </span>
               {isPlaying && (
-                <div style={{ display: "flex", gap: "2px", alignItems: "flex-end", height: "14px" }}>
+                <div style={{ display: "flex", gap: "2px", alignItems: "flex-end", height: "12px", flexShrink: 0 }}>
                   <div className="eq-bar"></div>
                   <div className="eq-bar"></div>
                   <div className="eq-bar"></div>
@@ -72,7 +73,7 @@ const AudioPlayerBar = () => {
                 </div>
               )}
             </div>
-            <div style={{ display: "flex", gap: "10px", fontSize: "0.75rem", color: "var(--text-muted)" }}>
+            <div style={{ display: "flex", gap: "8px", fontSize: "0.72rem", color: "var(--text-muted)" }}>
               <span>{currentTrack.genre}</span>
               <span>•</span>
               <span>{currentTrack.duration}</span>
@@ -81,35 +82,35 @@ const AudioPlayerBar = () => {
         </div>
 
         {/* Player Controls */}
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-          <button onClick={prevTrack} style={{ background: "none", color: "var(--text-muted)", fontSize: "1.2rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "14px", flexShrink: 0 }}>
+          <button onClick={prevTrack} style={{ background: "none", color: "var(--text-muted)", fontSize: "1.1rem" }}>
             ⏮
           </button>
           <button
             onClick={togglePlay}
             style={{
-              width: "44px",
-              height: "44px",
+              width: "40px",
+              height: "40px",
               borderRadius: "50%",
               background: "linear-gradient(135deg, #00f2fe, #4facfe)",
               color: "#050b14",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: "1.2rem",
+              fontSize: "1.1rem",
               boxShadow: "0 0 15px rgba(0, 242, 254, 0.4)"
             }}
           >
             {isPlaying ? "⏸" : "▶"}
           </button>
-          <button onClick={nextTrack} style={{ background: "none", color: "var(--text-muted)", fontSize: "1.2rem" }}>
+          <button onClick={nextTrack} style={{ background: "none", color: "var(--text-muted)", fontSize: "1.1rem" }}>
             ⏭
           </button>
         </div>
 
-        {/* Simulated Waveform & Sound Volume */}
-        <div style={{ display: "flex", alignItems: "center", gap: "16px", minWidth: "200px" }}>
-          <div style={{ flex: 1, display: "flex", alignItems: "center", gap: "3px", height: "24px" }}>
+        {/* Waveform & Mute */}
+        <div className="audio-player-waveform" style={{ display: "flex", alignItems: "center", gap: "16px", minWidth: "180px" }}>
+          <div style={{ flex: 1, display: "flex", alignItems: "center", gap: "3px", height: "20px" }}>
             {[40, 70, 30, 90, 60, 100, 45, 80, 55, 95, 35, 75, 50, 85, 65, 40, 90, 60, 30, 80].map((height, i) => (
               <div
                 key={i}
@@ -126,7 +127,7 @@ const AudioPlayerBar = () => {
 
           <button
             onClick={() => setIsMuted(!isMuted)}
-            style={{ background: "none", color: "var(--text-muted)", fontSize: "1.1rem" }}
+            style={{ background: "none", color: "var(--text-muted)", fontSize: "1rem" }}
           >
             {isMuted ? "🔇" : "🔊"}
           </button>
