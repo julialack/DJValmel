@@ -1,42 +1,46 @@
+import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 
 const Navbar = () => {
   const location = useLocation()
   const { user, logout } = useAuth()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const isActive = (path) => location.pathname === path
 
+  const closeMobileMenu = () => setMobileMenuOpen(false)
+
   return (
     <header className="glass-panel" style={{ position: "sticky", top: 0, zIndex: 1000, borderRadius: 0, borderTop: "none", borderLeft: "none", borderRight: "none" }}>
-      <div className="container nav-header-container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "76px" }}>
+      <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "70px" }}>
         {/* Brand Logo */}
-        <Link to="/" style={{ display: "flex", alignItems: "center", gap: "12px", textDecoration: "none" }}>
+        <Link to="/" onClick={closeMobileMenu} style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}>
           <div style={{
-            width: "44px",
-            height: "44px",
-            borderRadius: "12px",
+            width: "40px",
+            height: "40px",
+            borderRadius: "10px",
             background: "linear-gradient(135deg, #00f2fe 0%, #9d4edd 100%)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             boxShadow: "0 0 15px rgba(0, 242, 254, 0.4)",
-            fontSize: "1.4rem"
+            fontSize: "1.3rem"
           }}>
             🎧
           </div>
           <div>
-            <span style={{ fontSize: "1.3rem", fontWeight: "800", letterSpacing: "1px", color: "#fff", display: "block", lineHeight: 1 }}>
+            <span style={{ fontSize: "1.2rem", fontWeight: "800", letterSpacing: "1px", color: "#fff", display: "block", lineHeight: 1 }}>
               DJ <span className="gradient-text">VALMEL</span>
             </span>
-            <span style={{ fontSize: "0.68rem", color: "var(--text-muted)", letterSpacing: "2px", textTransform: "uppercase" }}>
+            <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", letterSpacing: "1.5px", textTransform: "uppercase" }}>
               Official Website
             </span>
           </div>
         </Link>
 
-        {/* Navigation Links */}
-        <nav className="nav-links-menu" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        {/* Desktop Navigation Links */}
+        <nav className="desktop-nav-menu" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <Link
             to="/"
             style={{
@@ -110,8 +114,8 @@ const Navbar = () => {
           </Link>
         </nav>
 
-        {/* User Login / Admin Status */}
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        {/* Desktop Admin status / Login */}
+        <div className="desktop-admin-status" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           {user ? (
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
               <Link
@@ -137,7 +141,143 @@ const Navbar = () => {
             </Link>
           )}
         </div>
+
+        {/* Mobile Hamburger Button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="mobile-hamburger-btn"
+          aria-label="Meny"
+          style={{
+            display: "none",
+            background: "rgba(255,255,255,0.08)",
+            border: "1px solid var(--border-color)",
+            color: "#fff",
+            fontSize: "1.4rem",
+            width: "44px",
+            height: "44px",
+            borderRadius: "10px",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          {mobileMenuOpen ? "✕" : "☰"}
+        </button>
       </div>
+
+      {/* Mobile Menu Slide-down Drawer */}
+      {mobileMenuOpen && (
+        <div
+          className="mobile-menu-drawer"
+          style={{
+            background: "rgba(10, 12, 20, 0.98)",
+            backdropFilter: "blur(20px)",
+            borderBottom: "1px solid var(--border-glow)",
+            padding: "20px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px"
+          }}
+        >
+          <Link
+            to="/"
+            onClick={closeMobileMenu}
+            style={{
+              padding: "12px 16px",
+              borderRadius: "10px",
+              fontWeight: 600,
+              fontSize: "1.05rem",
+              color: isActive("/") ? "var(--primary)" : "#fff",
+              background: isActive("/") ? "rgba(0, 242, 254, 0.15)" : "rgba(255,255,255,0.03)"
+            }}
+          >
+            🏠 Start
+          </Link>
+          <Link
+            to="/about"
+            onClick={closeMobileMenu}
+            style={{
+              padding: "12px 16px",
+              borderRadius: "10px",
+              fontWeight: 600,
+              fontSize: "1.05rem",
+              color: isActive("/about") ? "var(--primary)" : "#fff",
+              background: isActive("/about") ? "rgba(0, 242, 254, 0.15)" : "rgba(255,255,255,0.03)"
+            }}
+          >
+            ✨ Om DJ Valmel
+          </Link>
+          <Link
+            to="/music"
+            onClick={closeMobileMenu}
+            style={{
+              padding: "12px 16px",
+              borderRadius: "10px",
+              fontWeight: 600,
+              fontSize: "1.05rem",
+              color: isActive("/music") ? "var(--primary)" : "#fff",
+              background: isActive("/music") ? "rgba(0, 242, 254, 0.15)" : "rgba(255,255,255,0.03)"
+            }}
+          >
+            🎧 Musik & Mixar
+          </Link>
+          <Link
+            to="/booking"
+            onClick={closeMobileMenu}
+            style={{
+              padding: "14px 16px",
+              borderRadius: "10px",
+              fontWeight: 700,
+              fontSize: "1.05rem",
+              color: "#050b14",
+              background: "linear-gradient(135deg, #00f2fe 0%, #4facfe 100%)",
+              textAlign: "center"
+            }}
+          >
+            ⚡ Boka DJ Valmel Nu
+          </Link>
+          <Link
+            to="/contact"
+            onClick={closeMobileMenu}
+            style={{
+              padding: "12px 16px",
+              borderRadius: "10px",
+              fontWeight: 600,
+              fontSize: "1.05rem",
+              color: isActive("/contact") ? "var(--primary)" : "#fff",
+              background: isActive("/contact") ? "rgba(0, 242, 254, 0.15)" : "rgba(255,255,255,0.03)"
+            }}
+          >
+            💬 Kontakt
+          </Link>
+
+          <div style={{ borderTop: "1px solid var(--border-color)", paddingTop: "14px", marginTop: "6px" }}>
+            {user ? (
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <Link
+                  to="/admin"
+                  onClick={closeMobileMenu}
+                  className={`badge ${user.role === "it_admin" ? "badge-purple" : "badge-gold"}`}
+                  style={{ textDecoration: "none", padding: "10px 16px", fontSize: "0.9rem" }}
+                >
+                  {user.avatar} {user.role === "it_admin" ? "IT Admin Portal" : "DJ Admin Portal"}
+                </Link>
+                <button onClick={() => { logout(); closeMobileMenu(); }} className="btn btn-secondary btn-sm">
+                  Logga ut
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                onClick={closeMobileMenu}
+                className="btn btn-secondary"
+                style={{ width: "100%", justifyContent: "center" }}
+              >
+                🔒 Administrationsinloggning
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   )
 }
